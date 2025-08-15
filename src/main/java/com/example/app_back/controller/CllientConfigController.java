@@ -20,10 +20,12 @@ public class CllientConfigController {
     @Value("${sample.message:default msg app back}")
     private String configClientMsg;
 
+    @Value("${dbPassword}")
+    private String dbPassword;
+
     @GetMapping("/message")
     public String getMessage() {
-        return configClientMsg;
+        return dbPassword;
     }
-    
 
 }
