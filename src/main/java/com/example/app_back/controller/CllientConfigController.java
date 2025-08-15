@@ -1,6 +1,10 @@
 package com.example.app_back.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import com.example.app_back.feign.AppImportClient;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +21,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RestController
 @RefreshScope
 public class CllientConfigController {
+    @Autowired
+    private AppImportClient importServiceClient;
+
     @Value("${sample.message:default msg app back}")
     private String configClientMsg;
 
@@ -26,6 +33,11 @@ public class CllientConfigController {
     @GetMapping("/message")
     public String getMessage() {
         return dbPassword;
+    }
+
+    @GetMapping("/back")
+    public String getMessageFromAppImport() {
+        return "Back app comminicate with import  " + importServiceClient.getMsgFromImport();
     }
 
 }
